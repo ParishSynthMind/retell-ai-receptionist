@@ -1,0 +1,22 @@
+[
+  {
+    "at": "2026-11-05T18:07:59.263950+00:00",
+    "subject": "[TEST] Retell live test: Call summary: unknown number",
+    "body": "THIS IS A TEST from the Retell AI receptionist live test (fictional clinic). No action needed.\n\nCall summary (written by Retell after the call; the agent did not send one)\n\nCaller: unknown number\nCall id: call_958c6e37a5b8bac6eeaa2676600\nEnded: user_hangup\nSentiment: Neutral\n\nWhat happened:\nThe caller asked what time Harbour Dental Clinic opens on Saturday. The agent began answering that Saturday hours start at 10, but the call ended before the response was completed.\n\nOutcome logged: none\n"
+  },
+  {
+    "at": "2026-11-05T18:11:22.048952+00:00",
+    "subject": "[TEST] Retell live test: Call summary: Sam Taylor",
+    "body": "THIS IS A TEST from the Retell AI receptionist live test (fictional clinic). No action needed.\n\nCall summary from the Harbour Dental Clinic voice receptionist\n\nCaller: Sam Taylor\nPhone: 07700900123\nCall id: call_06b2f657c72d6c464f53b28a255\n\nWhat happened:\nSam Taylor, a new patient, called asking about parking and booked a check-up. Booked for Friday 6 November 2026 at 9am, reference EC87E3.\n\nFollow-up needed: None\n"
+  },
+  {
+    "at": "2026-11-05T18:13:35.692538+00:00",
+    "subject": "[TEST] Retell live test: URGENT Handover: call back Jordan Lee",
+    "body": "THIS IS A TEST from the Retell AI receptionist live test (fictional clinic). No action needed.\n\nA caller asked to speak to a person.\n\nCaller: Jordan Lee\nCall back on: 07700900456\nUrgent: YES\nReason: Severe toothache, throbbing all night, requests to speak to a person\nCall id: call_4ce87c7fa4026765cf2ed5b531a\n"
+  },
+  {
+    "at": "2026-11-05T18:14:04.565648+00:00",
+    "subject": "[TEST] Retell live test: Call summary: Jordan Lee",
+    "body": "THIS IS A TEST from the Retell AI receptionist live test (fictional clinic). No action needed.\n\nCall summary from the Harbour Dental Clinic voice receptionist\n\nCaller: Jordan Lee\nPhone: 07700900456\nCall id: call_4ce87c7fa4026765cf2ed5b531a\n\nWhat happened:\nJordan Lee called with a severe toothache that has been throbbing all night and asked to speak to a person. Urgent handover made; team alerted.\n\nFollow-up needed: Call Jordan Lee back on 07700900456 within 15 minutes; patient in pain, consider same-day emergency slot.\n"
+  }
+]

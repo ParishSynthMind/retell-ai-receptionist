@@ -147,6 +147,23 @@ def test_no_summary_from_the_agent_means_retell_summary_is_emailed_once(client, 
     assert "user_hangup" in body and "Caller hung up after asking the price." in body
 
 
+def test_a_call_that_never_connected_sends_no_email(client, notifier):
+    # Shape from the live test: Retell still sends call_ended and call_analyzed for a web call
+    # whose caller never joined, with call_status "error" and no transcript.
+    gone = {"call_status": "error", "disconnection_reason": "error_user_not_joined", "duration_ms": 0}
+    webhook(client, "call_ended", **gone)
+    webhook(client, "call_analyzed", **gone, call_analysis={"call_summary": "", "call_successful": False})
+    assert notifier.sent == []
+    assert admin(client, "/calls").json()[0]["outcome"] == "Never connected (error_user_not_joined)"
+
+
+def test_fallback_summary_for_a_web_call_says_web_call(client, notifier):
+    web = {"call_type": "web_call", "from_number": None, "call_status": "ended"}
+    webhook(client, "call_analyzed", **web, disconnection_reason="user_hangup",
+            call_analysis={"call_summary": "The caller asked about Saturday hours and hung up."})
+    assert notifier.sent[0][0] == "Call summary: web call"
+
+
 def test_summary_already_sent_by_the_agent_is_not_sent_again(client, notifier):
     fn(client, "send_summary", {"summary": "Booked a clean."})
     webhook(client, "call_analyzed", call_analysis={"call_summary": "Booked a clean."})

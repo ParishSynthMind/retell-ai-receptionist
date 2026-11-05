@@ -1,0 +1,238 @@
+[
+  {
+    "scenario": "Call 1: asks about parking, books the earliest slot tomorrow",
+    "call_id": "call_06b2f657c72d6c464f53b28a255",
+    "call_type": "web_call",
+    "disconnection_reason": "agent_hangup",
+    "duration_seconds": 107.4,
+    "cost_usd": 0.262,
+    "latency_ms_p50": {
+      "e2e": 1674,
+      "llm": 1358,
+      "asr": 181,
+      "tts": 65
+    },
+    "retell_summary": "Sam Taylor asked about patient parking and booked a new patient check-up for Friday, November 6, 2026 at 9:00 AM. The appointment was confirmed (reference EC87E3), and Sam was advised to arrive 10 minutes early.",
+    "sentiment": "Positive",
+    "conversation": [
+      {
+        "role": "agent",
+        "text": "Hello, you're through to Harbour Dental Clinic. How can I help today?"
+      },
+      {
+        "role": "user",
+        "text": "Hi there. Do you have parking for patients? "
+      },
+      {
+        "role": "agent",
+        "text": "Yes, we have free parking for patients behind the building, with disabled spaces by the entrance. Is there anything else I can help with?"
+      },
+      {
+        "role": "user",
+        "text": "Great. Thanks. I'd like to book a checkup. What is the earliest slot you have tomorrow? "
+      },
+      {
+        "role": "function_call",
+        "name": "check_availability",
+        "arguments": {
+          "date": "tomorrow"
+        }
+      },
+      {
+        "role": "agent",
+        "text": "Sure, "
+      },
+      {
+        "role": "function_result",
+        "result": "{\"result\":\"Today is Thursday 05 November 2026. Free 30-minute slots on Friday 06 November (date 2026-11-06). Morning: 9am, 9:30am, 10am, 10:30am, 11am, 11:30am. Afternoon: 12pm, 12:30pm, 1pm, 1:30pm, 2pm, 2:30pm, 3pm, 3:30pm, 4pm, 4:30pm.\"}"
+      },
+      {
+        "role": "agent",
+        "text": "let me check tomorrow's slots.The earliest tomorrow is nine in the morning. Are you a new patient or have you visited us before?"
+      },
+      {
+        "role": "user",
+        "text": "That works. My name is Sam Taylor. My number is o seven seven double o nine, double o, one two three, and it's a new patient checkup. "
+      },
+      {
+        "role": "agent",
+        "text": "Thanks, Sam. Just to confirm, that's a new patient check-up tomorrow, Friday the sixth of November, at nine in the morning, and your number is 07700 900123. Shall I book it?"
+      },
+      {
+        "role": "user",
+        "text": "Yes. That's right. Please book it. "
+      },
+      {
+        "role": "function_call",
+        "name": "book_appointment",
+        "arguments": {
+          "date": "2026-11-06",
+          "time": "09:00",
+          "name": "Sam Taylor",
+          "phone": "07700900123",
+          "reason": "New patient check-up"
+        }
+      },
+      {
+        "role": "agent",
+        "text": "One moment, "
+      },
+      {
+        "role": "function_result",
+        "result": "{\"result\":\"Booked. Sam Taylor, New patient check-up, Friday 6 November at 9am. Reference EC87E3. Confirm this back to the caller.\"}"
+      },
+      {
+        "role": "agent",
+        "text": "let me check that.You're all booked, Sam: a new patient check-up tomorrow, Friday the sixth of November, at nine in the morning. Please arrive ten minutes early to fill in a medical history form. Is there anything else I can help with?"
+      },
+      {
+        "role": "user",
+        "text": "No. That's everything. Thank you. Goodbye. "
+      },
+      {
+        "role": "function_call",
+        "name": "send_summary",
+        "arguments": {
+          "caller_name": "Sam Taylor",
+          "phone": "07700900123",
+          "summary": "Sam Taylor, a new patient, called asking about parking and booked a check-up. Booked for Friday 6 November 2026 at 9am, reference EC87E3.",
+          "follow_up": "None"
+        }
+      },
+      {
+        "role": "function_result",
+        "result": "{\"result\":\"Summary sent to the team.\"}"
+      },
+      {
+        "role": "agent",
+        "text": "Thanks for calling Harbour Dental Clinic, Sam. See you tomorrow, goodbye!"
+      },
+      {
+        "role": "function_call",
+        "name": "end_call",
+        "arguments": {
+          "execution_message": "Thanks for calling Harbour Dental Clinic, Sam. See you tomorrow, goodbye!"
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Call 2: toothache, asks for a person",
+    "call_id": "call_4ce87c7fa4026765cf2ed5b531a",
+    "call_type": "web_call",
+    "disconnection_reason": "agent_hangup",
+    "duration_seconds": 71.0,
+    "cost_usd": 0.179,
+    "latency_ms_p50": {
+      "e2e": 1595,
+      "llm": 1048,
+      "asr": 212,
+      "tts": 96
+    },
+    "retell_summary": "Jordan Lee reported a severe throbbing toothache overnight and requested to speak with a person. An urgent handover was made, and the dental team was alerted to call Jordan back on 07700900456 within 15 minutes.",
+    "sentiment": "Neutral",
+    "conversation": [
+      {
+        "role": "agent",
+        "text": "Hello, you're through to Harbour Dental Clinic. How can I help today?"
+      },
+      {
+        "role": "user",
+        "text": "Hello. I've got a really bad toothache. It's been throbbing all night. Can I speak to a person, please? "
+      },
+      {
+        "role": "agent",
+        "text": "I'm sorry you're in pain. Let me get the team to call you right away. Can I have your name and the best number to reach you?"
+      },
+      {
+        "role": "user",
+        "text": "My name is Jordan Lee. And my number is o seven seven double o. Nine double o four five six. "
+      },
+      {
+        "role": "agent",
+        "text": "Number is "
+      },
+      {
+        "role": "function_call",
+        "name": "handover",
+        "arguments": {
+          "caller_name": "Jordan Lee",
+          "callback_number": "07700900456",
+          "reason": "Severe toothache, throbbing all night, requests to speak to a person",
+          "urgent": true
+        }
+      },
+      {
+        "role": "agent",
+        "text": "07700 900456. "
+      },
+      {
+        "role": "function_result",
+        "result": "{\"result\":\"The team has been alerted and will call Jordan Lee back on 07700900456 within 15 minutes. Tell the caller exactly that.\"}"
+      },
+      {
+        "role": "agent",
+        "text": "Let me pass that on now.The team has been alerted and will call you back on 07700 900456 within 15 minutes. Is there anything else you need while you wait?"
+      },
+      {
+        "role": "user",
+        "text": "Okay. Thank you. That's all. Bye. "
+      },
+      {
+        "role": "function_call",
+        "name": "send_summary",
+        "arguments": {
+          "caller_name": "Jordan Lee",
+          "phone": "07700900456",
+          "summary": "Jordan Lee called with a severe toothache that has been throbbing all night and asked to speak to a person. Urgent handover made; team alerted.",
+          "follow_up": "Call Jordan Lee back on 07700900456 within 15 minutes; patient in pain, consider same-day emergency slot."
+        }
+      },
+      {
+        "role": "function_result",
+        "result": "{\"result\":\"Summary sent to the team.\"}"
+      },
+      {
+        "role": "agent",
+        "text": "Take care, Jordan. We'll be in touch very soon. Goodbye."
+      },
+      {
+        "role": "function_call",
+        "name": "end_call",
+        "arguments": {
+          "execution_message": "Goodbye."
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Call 3: hangs up while the receptionist is answering",
+    "call_id": "call_958c6e37a5b8bac6eeaa2676600",
+    "call_type": "web_call",
+    "disconnection_reason": "user_hangup",
+    "duration_seconds": 13.8,
+    "cost_usd": 0.052,
+    "latency_ms_p50": {
+      "e2e": 1163,
+      "llm": 497,
+      "asr": 89,
+      "tts": 70
+    },
+    "retell_summary": "The caller asked what time Harbour Dental Clinic opens on Saturday. The agent began answering that Saturday hours start at 10, but the call ended before the response was completed.",
+    "sentiment": "Neutral",
+    "conversation": [
+      {
+        "role": "agent",
+        "text": "Hello, you're through to Harbour Dental Clinic. How can I help today?"
+      },
+      {
+        "role": "user",
+        "text": "Hi. What time do you open on Saturday? "
+      },
+      {
+        "role": "agent",
+        "text": "On Saturdays we're open from ten in the "
+      }
+    ]
+  }
+]

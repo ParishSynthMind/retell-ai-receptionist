@@ -4,9 +4,9 @@ A phone receptionist built on **Retell AI**, with Claude (Sonnet 5.5) as the bra
 
 It is a Retell version of my [Vapi receptionist](https://github.com/ParishSynthMind/voice-ai-receptionist): the same booking, calendar and call-log logic, rewired to Retell's custom functions, webhooks and signatures.
 
-![A full call played against the real server, with requests signed the way Retell signs them](media/local-signed-run.png)
+![A real Retell call: the caller asks about parking, then books the earliest slot tomorrow](media/live-call-booking.png)
 
-*Real local run, 5 November 2026. The server ran under uvicorn and a simulator sent each request exactly as Retell's docs describe them, signed with `X-Retell-Signature`. A second caller trying the booked slot was refused, Retell's retry of `call_ended` was ignored, and a request with a forged signature got a 401. This is not a live Retell call yet; see [What is NOT proven](#what-is-not-proven).*
+*A real Retell web call, 5 November 2026, taken from Retell's own call record. Claude Sonnet 5.5 ran on Retell's voice pipeline and the functions ran on this server. The caller was a scripted synthetic voice (see [Tested live](#tested-live-on-5-november-2026)).*
 
 ## How it works
 
@@ -58,6 +58,16 @@ python scripts/create_agent.py --delete                                         
 
 Then call the agent from the Retell dashboard ("Test" with your browser's microphone) or a Retell phone number.
 
+### A live call without a microphone
+
+```bash
+mkdir -p clips/booking
+say -o /tmp/01.aiff "Hi there. Do you have parking for patients?" && afconvert -f WAVE -d LEI16@48000 /tmp/01.aiff clips/booking/01.wav
+python scripts/web_test_call.py --clips clips/booking --out runs/booking --keychain retell-api-key
+```
+
+`web_test_call.py` starts a real Retell web call in a headless browser and plays the caller lines instead of a microphone, waiting for the receptionist to stop talking before each one (`--hangup-early` hangs up mid-answer). Retell now issues web-call tokens for its "gateway" transport, so the page uses `retell-client-js-sdk` 3.x and passes `transport` and `call_id` from `create-web-call`; the 2.x SDK fails with "invalid API key".
+
 ### Without a Retell account
 
 ```bash
@@ -74,7 +84,7 @@ RETELL_API_KEY=local-test-key python scripts/simulate_call.py
 ## Tests
 
 ```bash
-pytest          # 66 tests, Retell, Google Calendar and email mocked, no keys needed
+pytest          # 68 tests, Retell, Google Calendar and email mocked, no keys needed
 ruff check .
 ```
 
@@ -86,21 +96,33 @@ ruff check .
 
 GitHub Actions runs lint and tests on every push, with no secrets.
 
-## Tested on 5 November 2026: locally, not yet against Retell
+## Tested live on 5 November 2026
 
-- **66 tests pass** (above).
-- **A real local run** of the server under uvicorn, driven by `simulate_call.py` with real signatures: every status code as expected, one booking made and one double booking refused, the handover and summary emails written to the outbox, the call log filled from the webhooks, Retell's retry ignored, the forged request refused. Output in [`examples/local-run/`](examples/local-run/).
-- That run found two things, both fixed with tests: a call that booked AND asked for a person only kept the last outcome (now both are kept), and the server log line carried caller names and numbers (now it doesn't).
+The server ran on this Mac behind a Cloudflare quick tunnel, `create_agent.py` created the LLM and agent through Retell's API (first try, no changes needed), and three real Retell web calls were made with a synthetic caller. Emails went over real SMTP to one test address. Evidence in [`examples/live-run/`](examples/live-run/). The agent and LLM were deleted afterwards.
 
-![The call log and the two team emails from the local run](media/call-record-and-emails.png)
+| Call | What the caller did | What happened |
+|---|---|---|
+| 1 | Asked about parking, then the earliest slot tomorrow | Parking answered from the knowledge base; `check_availability` found 9am; details read back; `book_appointment` booked it (in `/calendar.ics`); `send_summary` emailed once. 107 s, $0.26. |
+| 2 | Toothache, asked for a person | `handover` with `urgent: true`, the URGENT email sent, the caller told "within 15 minutes"; summary emailed. 71 s, $0.18. |
+| 3 | Hung up while the receptionist was answering | `user_hangup` after 14 s; Retell's own summary emailed once by the fallback. $0.05. |
+
+- **Every Retell request passed the signature check**: 23 of 23 (function calls and webhooks from Retell's documented IP `100.20.5.228`). An unsigned and a forged request sent through the tunnel got 401, and `/calls` without the admin token got 401.
+- **Median reply time 1.2 to 1.7 seconds** end to end (Claude 0.5 to 1.4 s), from Retell's latency figures.
+- **Webhooks arrive out of order** (on call 3, `call_analyzed` came before `call_ended` and `call_started`). The call log merged them correctly.
+- **The live run found one thing, fixed with tests and re-checked live**: Retell sends `call_ended` and `call_analyzed` even for a web call whose caller never joined (`error_user_not_joined`), and the fallback emailed an empty "summary" for each. Those calls are now logged as "Never connected" with no email, and a web call's fallback says "web call" instead of "unknown number" (call 3's email above predates that change).
+- **68 tests pass** and lint is clean; the earlier signed local run is still in [`examples/local-run/`](examples/local-run/).
+
+![Calls 2 and 3](media/live-calls-handover-hangup.png)
+
+![The call log and every email from the live calls](media/live-call-record-and-emails.png)
 
 ## What is NOT proven
 
-- **A live Retell call.** Nothing here has talked to Retell yet. The next step: a free Retell account, create the agent with the script, put the server behind a tunnel, make test calls from the dashboard. This README will be updated with that run.
-- **Retell's exact payloads in practice.** The mocks follow Retell's docs (request spec, webhook samples, OpenAPI reference revision 2026-11-04), not captured traffic.
-- **How Claude behaves on Retell's voice pipeline**: latency, interruptions, how reliably it calls the functions in the right order. Only a live call shows that.
+- **A real phone line.** The calls were Retell web calls (the same agent, voice pipeline and functions), not calls to a Retell phone number, so phone-network audio and caller ID were not tested.
+- **A human caller.** The caller was a synthetic voice reading a script. Retell transcribed it well (it wrote the phone numbers as "o seven seven double o", and Claude still got them right).
+- **Many calls or calls at the same time.** Three calls, one at a time.
 - **Call transfer to a real number**, SMS, and a real phone number on the agent. Not built here (the handover emails the team instead).
-- **Email over SMTP from this build.** The notifier is the Vapi build's, where SMTP was used live; here messages went to the local outbox.
+- **The Google Calendar backend on this build.** It is the Vapi build's, tested live there; these calls used the local calendar.
 
 ## Project layout
 
@@ -118,7 +140,8 @@ receptionist/
 scripts/
   create_agent.py   create / update / delete the LLM and agent through Retell's API
   simulate_call.py  play a signed call against a running server, no Retell account needed
-  render_media.py   README images from the real run
+  web_test_call.py  a real Retell web call with a synthetic caller, no microphone needed
+  render_media.py   README images from the live run
 data/knowledge_base.md   the (fictional) clinic's FAQ, swap for a real client's
 ```
 

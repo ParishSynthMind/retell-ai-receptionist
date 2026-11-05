@@ -153,10 +153,16 @@ def create_app(settings: Optional[Settings] = None, receptionist: Optional[Recep
             rec.log.mark(call_id, analysis_summary=analysis.get("call_summary"),
                          sentiment=analysis.get("user_sentiment"))
             row = rec.log.get(call_id) or {}
-            if not row.get("summary_emailed"):
+            if call.get("call_status") == "error" and not call.get("transcript") and not row.get("transcript"):
+                # The caller never joined (Retell: error_user_not_joined and the like). Nobody to
+                # report on, so log it and send no email; the live test found these were just noise.
+                rec.log.mark(call_id, outcome=row.get("outcome") or
+                             f"Never connected ({call.get('disconnection_reason') or 'error'})")
+            elif not row.get("summary_emailed"):
                 # The agent didn't send a summary during the call (caller hung up early, or the
                 # model skipped it): send Retell's own summary so no call goes unreported.
-                caller = _clean(call.get("from_number") or "unknown number", 40)
+                fallback = "web call" if call.get("call_type") == "web_call" else "unknown number"
+                caller = _clean(call.get("from_number") or fallback, 40)
                 body_text = (f"Call summary (written by Retell after the call; the agent did not send one)\n\n"
                              f"Caller: {caller}\nCall id: {call_id}\n"
                              f"Ended: {row.get('ended_reason') or call.get('disconnection_reason') or 'unknown'}\n"

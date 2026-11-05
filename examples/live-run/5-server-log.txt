@@ -1,0 +1,63 @@
+# Server log for the live test, 5 November 2026 (Asia/Dubai clock). Retell sends from 100.20.5.228.
+# The two 401s are my own unsigned and forged requests sent through the tunnel; every Retell request was VALID.
+2026-11-05 21:47:58,919 INFO signature X-Retell-Signature REJECTED (39-byte body)
+2026-11-05 21:47:58,919 WARNING receptionist rejected a request with a missing, wrong or stale X-Retell-Signature
+INFO:     <tester IP>:0 - "POST /retell/tool/check_availability HTTP/1.1" 401 Unauthorized
+2026-11-05 21:47:59,650 INFO signature X-Retell-Signature REJECTED (47-byte body)
+2026-11-05 21:47:59,651 WARNING receptionist rejected a request with a missing, wrong or stale X-Retell-Signature
+INFO:     <tester IP>:0 - "POST /retell/webhook HTTP/1.1" 401 Unauthorized
+2026-11-05 21:54:18,126 INFO signature X-Retell-Signature VALID (1465-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 21:54:20,994 INFO signature X-Retell-Signature VALID (1328-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:04:27,353 INFO signature X-Retell-Signature VALID (1314-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:06:09,819 INFO signature X-Retell-Signature VALID (11722-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:06:12,881 INFO signature X-Retell-Signature VALID (11390-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:06:26,930 INFO signature X-Retell-Signature VALID (1328-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:06:26,937 INFO signature X-Retell-Signature VALID (1465-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:07:44,419 INFO signature X-Retell-Signature VALID (1314-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:07:59,259 INFO signature X-Retell-Signature VALID (6325-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:08:03,159 INFO signature X-Retell-Signature VALID (6008-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:08:03,166 INFO signature X-Retell-Signature VALID (1465-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:08:06,038 INFO signature X-Retell-Signature VALID (1328-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:09:44,346 INFO signature X-Retell-Signature VALID (1314-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:10:14,871 INFO signature X-Retell-Signature VALID (8556-byte body)
+2026-11-05 22:10:14,875 INFO receptionist function check_availability answered (227 characters)
+INFO:     100.20.5.228:0 - "POST /retell/tool/check_availability HTTP/1.1" 200 OK
+2026-11-05 22:11:00,260 INFO signature X-Retell-Signature VALID (19784-byte body)
+2026-11-05 22:11:00,265 INFO receptionist function book_appointment answered (118 characters)
+INFO:     100.20.5.228:0 - "POST /retell/tool/book_appointment HTTP/1.1" 200 OK
+2026-11-05 22:11:22,020 INFO signature X-Retell-Signature VALID (26685-byte body)
+2026-11-05 22:11:25,043 INFO receptionist function send_summary answered (25 characters)
+INFO:     100.20.5.228:0 - "POST /retell/tool/send_summary HTTP/1.1" 200 OK
+2026-11-05 22:11:33,748 INFO signature X-Retell-Signature VALID (30334-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:11:33,830 INFO signature X-Retell-Signature VALID (30682-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:13:02,033 INFO signature X-Retell-Signature VALID (1314-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:13:35,690 INFO signature X-Retell-Signature VALID (11466-byte body)
+2026-11-05 22:13:39,570 INFO receptionist function handover answered (119 characters)
+INFO:     100.20.5.228:0 - "POST /retell/tool/handover HTTP/1.1" 200 OK
+2026-11-05 22:14:04,563 INFO signature X-Retell-Signature VALID (17257-byte body)
+2026-11-05 22:14:07,470 INFO receptionist function send_summary answered (25 characters)
+INFO:     100.20.5.228:0 - "POST /retell/tool/send_summary HTTP/1.1" 200 OK
+2026-11-05 22:14:14,555 INFO signature X-Retell-Signature VALID (20256-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:14:14,564 INFO signature X-Retell-Signature VALID (20603-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:21:29,789 INFO signature X-Retell-Signature VALID (1328-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content
+2026-11-05 22:21:29,797 INFO signature X-Retell-Signature VALID (1465-byte body)
+INFO:     100.20.5.228:0 - "POST /retell/webhook HTTP/1.1" 204 No Content

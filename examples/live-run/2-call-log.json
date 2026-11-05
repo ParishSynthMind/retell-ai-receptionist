@@ -1,0 +1,110 @@
+[
+  {
+    "call_id": "call_9c9e11b9fd2205f760fb6daaa19",
+    "kind": "web_call",
+    "caller": null,
+    "started_at": "2026-11-05T18:21:28.892000+00:00",
+    "ended_at": "2026-11-05T18:21:28.892000+00:00",
+    "ended_reason": "error_user_not_joined",
+    "duration_seconds": 0.0,
+    "cost": 0.0,
+    "summary": null,
+    "transcript": "",
+    "outcome": "Never connected (error_user_not_joined)",
+    "handover": 0,
+    "updated_utc": "2026-11-05T18:21:29.799966+00:00",
+    "analysis_summary": "",
+    "sentiment": "Unknown",
+    "summary_emailed": 0,
+    "tool_events": []
+  },
+  {
+    "call_id": "call_4ce87c7fa4026765cf2ed5b531a",
+    "kind": "web_call",
+    "caller": null,
+    "started_at": "2026-11-05T18:13:01.627000+00:00",
+    "ended_at": "2026-11-05T18:14:12.599000+00:00",
+    "ended_reason": "agent_hangup",
+    "duration_seconds": 70.972,
+    "cost": 0.179366714,
+    "summary": "Jordan Lee called with a severe toothache that has been throbbing all night and asked to speak to a person. Urgent handover made; team alerted.",
+    "transcript": "Agent: Hello, you're through to Harbour Dental Clinic. How can I help today?\nUser: Hello. I've got a really bad toothache. It's been throbbing all night. Can I speak to a person, please? \nAgent: I'm sorry you're in pain. Let me get the team to call you right away. Can I have your name and the best number to reach you?\nUser: My name is Jordan Lee. And my number is o seven seven double o. Nine double o four five six. \nAgent: Number is \nAgent: 07700 900456. \nAgent: Let me pass that on now.The team has been alerted and will call you back on 07700 900456 within 15 minutes. Is there anything else you need while you wait?\nUser: Okay. Thank you. That's all. Bye. \nAgent: Take care, Jordan. We'll be in touch very soon. Goodbye.\n",
+    "outcome": "Handed over: Severe toothache, throbbing all night, requests to speak to a person",
+    "handover": 1,
+    "updated_utc": "2026-11-05T18:14:14.567175+00:00",
+    "analysis_summary": "Jordan Lee reported a severe throbbing toothache overnight and requested to speak with a person. An urgent handover was made, and the dental team was alerted to call Jordan back on 07700900456 within 15 minutes.",
+    "sentiment": "Neutral",
+    "summary_emailed": 1,
+    "tool_events": [
+      {
+        "tool": "handover",
+        "arguments": "{\"caller_name\": \"Jordan Lee\", \"callback_number\": \"07700900456\", \"reason\": \"Severe toothache, throbbing all night, requests to speak to a person\", \"urgent\": true}",
+        "result": "The team has been alerted and will call Jordan Lee back on 07700900456 within 15 minutes. Tell the caller exactly that.",
+        "at_utc": "2026-11-05T18:13:39.569532+00:00"
+      },
+      {
+        "tool": "send_summary",
+        "arguments": "{\"caller_name\": \"Jordan Lee\", \"phone\": \"07700900456\", \"summary\": \"Jordan Lee called with a severe toothache that has been throbbing all night and asked to speak to a person. Urgent handover made; team alerted.\", \"follow_up\": \"Call Jordan Lee back on 07700900456 within 15 minutes; patient in pain, consider same-day emergency slot.\"}",
+        "result": "Summary sent to the team.",
+        "at_utc": "2026-11-05T18:14:07.469471+00:00"
+      }
+    ]
+  },
+  {
+    "call_id": "call_06b2f657c72d6c464f53b28a255",
+    "kind": "web_call",
+    "caller": null,
+    "started_at": "2026-11-05T18:09:44.009000+00:00",
+    "ended_at": "2026-11-05T18:11:31.405000+00:00",
+    "ended_reason": "agent_hangup",
+    "duration_seconds": 107.396,
+    "cost": 0.26200007200000003,
+    "summary": "Sam Taylor, a new patient, called asking about parking and booked a check-up. Booked for Friday 6 November 2026 at 9am, reference EC87E3.",
+    "transcript": "Agent: Hello, you're through to Harbour Dental Clinic. How can I help today?\nUser: Hi there. Do you have parking for patients? \nAgent: Yes, we have free parking for patients behind the building, with disabled spaces by the entrance. Is there anything else I can help with?\nUser: Great. Thanks. I'd like to book a checkup. What is the earliest slot you have tomorrow? \nAgent: Sure, \nAgent: let me check tomorrow's slots.The earliest tomorrow is nine in the morning. Are you a new patient or have you visited us before?\nUser: That works. My name is Sam Taylor. My number is o seven seven double o nine, double o, one two three, and it's a new patient checkup. \nAgent: Thanks, Sam. Just to confirm, that's a new patient check-up tomorrow, Friday the sixth of November, at nine in the morning, and your number is 07700 900123. Shall I book it?\nUser: Yes. That's right. Please book it. \nAgent: One moment, \nAgent: let me check that.You're all booked, Sam: a new patient check-up tomorrow, Friday the sixth of November, at nine in the morning. Please arrive ten minutes early to fill in a medical history form. Is there anything else I can help with?\nUser: No. That's everything. Thank you. Goodbye. \nAgent: Thanks for calling Harbour Dental Clinic, Sam. See you tomorrow, goodbye!\n",
+    "outcome": "Booked Friday 6 November at 9am for Sam Taylor (New patient check-up)",
+    "handover": 0,
+    "updated_utc": "2026-11-05T18:11:33.833969+00:00",
+    "analysis_summary": "Sam Taylor asked about patient parking and booked a new patient check-up for Friday, November 6, 2026 at 9:00 AM. The appointment was confirmed (reference EC87E3), and Sam was advised to arrive 10 minutes early.",
+    "sentiment": "Positive",
+    "summary_emailed": 1,
+    "tool_events": [
+      {
+        "tool": "check_availability",
+        "arguments": "{\"date\": \"tomorrow\"}",
+        "result": "Today is Thursday 05 November 2026. Free 30-minute slots on Friday 06 November (date 2026-11-06). Morning: 9am, 9:30am, 10am, 10:30am, 11am, 11:30am. Afternoon: 12pm, 12:30pm, 1pm, 1:30pm, 2pm, 2:30pm, 3pm, 3:30pm, 4pm, 4:30pm.",
+        "at_utc": "2026-11-05T18:10:14.874589+00:00"
+      },
+      {
+        "tool": "book_appointment",
+        "arguments": "{\"date\": \"2026-11-06\", \"time\": \"09:00\", \"name\": \"Sam Taylor\", \"phone\": \"07700900123\", \"reason\": \"New patient check-up\"}",
+        "result": "Booked. Sam Taylor, New patient check-up, Friday 6 November at 9am. Reference EC87E3. Confirm this back to the caller.",
+        "at_utc": "2026-11-05T18:11:00.265337+00:00"
+      },
+      {
+        "tool": "send_summary",
+        "arguments": "{\"caller_name\": \"Sam Taylor\", \"phone\": \"07700900123\", \"summary\": \"Sam Taylor, a new patient, called asking about parking and booked a check-up. Booked for Friday 6 November 2026 at 9am, reference EC87E3.\", \"follow_up\": \"None\"}",
+        "result": "Summary sent to the team.",
+        "at_utc": "2026-11-05T18:11:25.042401+00:00"
+      }
+    ]
+  },
+  {
+    "call_id": "call_958c6e37a5b8bac6eeaa2676600",
+    "kind": "web_call",
+    "caller": null,
+    "started_at": "2026-11-05T18:07:44.098000+00:00",
+    "ended_at": "2026-11-05T18:07:57.898000+00:00",
+    "ended_reason": "user_hangup",
+    "duration_seconds": 13.8,
+    "cost": 0.052066676000000006,
+    "summary": null,
+    "transcript": "Agent: Hello, you're through to Harbour Dental Clinic. How can I help today?\nUser: Hi. What time do you open on Saturday? \nAgent: On Saturdays we're open from ten in the \n",
+    "outcome": null,
+    "handover": 0,
+    "updated_utc": "2026-11-05T18:08:03.164322+00:00",
+    "analysis_summary": "The caller asked what time Harbour Dental Clinic opens on Saturday. The agent began answering that Saturday hours start at 10, but the call ended before the response was completed.",
+    "sentiment": "Neutral",
+    "summary_emailed": 1,
+    "tool_events": []
+  }
+]
