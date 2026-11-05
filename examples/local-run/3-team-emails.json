@@ -1,0 +1,10 @@
+[
+  {
+    "subject": "Handover: call back Sam Taylor",
+    "body": "A caller asked to speak to a person.\n\nCaller: Sam Taylor\nCall back on: +447700900123\nUrgent: no\nReason: Asked about payment plans\nCall id: sim_call_0001\n"
+  },
+  {
+    "subject": "Call summary: Sam Taylor",
+    "body": "Call summary from the Harbour Dental Clinic voice receptionist\n\nCaller: Sam Taylor\nPhone: +447700900123\nCall id: sim_call_0001\n\nWhat happened:\nNew patient booked a check-up. Asked about payment plans.\n\nFollow-up needed: Call back about payment plans\n"
+  }
+]

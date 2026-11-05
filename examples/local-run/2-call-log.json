@@ -1,0 +1,52 @@
+[
+    {
+        "call_id": "sim_call_0001",
+        "kind": "phone_call",
+        "caller": "+447700900123",
+        "started_at": "2026-11-05T10:19:04.222000+00:00",
+        "ended_at": "2026-11-05T10:21:38.222000+00:00",
+        "ended_reason": "agent_hangup",
+        "duration_seconds": 154.0,
+        "cost": 0.31,
+        "summary": "New patient booked a check-up. Asked about payment plans.",
+        "transcript": "Agent: Hello...\nUser: Hi, I'd like to book...",
+        "outcome": "Booked Friday 6 November at 10:30am for Sam Taylor (New patient check-up); Handed over: Asked about payment plans",
+        "handover": 1,
+        "updated_utc": "2026-11-05T10:19:04.260803+00:00",
+        "analysis_summary": "The caller booked a new patient check-up and asked about payment plans.",
+        "sentiment": "Positive",
+        "summary_emailed": 1,
+        "tool_events": [
+            {
+                "tool": "check_availability",
+                "arguments": "{\"date\": \"2026-11-06\"}",
+                "result": "Today is Thursday 05 November 2026. Free 30-minute slots on Friday 06 November (date 2026-11-06). Morning: 9am, 9:30am, 10am, 10:30am, 11am, 11:30am. Afternoon: 12pm, 12:30pm, 1pm, 1:30pm, 2pm, 2:30pm, 3pm, 3:30pm, 4pm, 4:30pm.",
+                "at_utc": "2026-11-05T10:19:04.251872+00:00"
+            },
+            {
+                "tool": "book_appointment",
+                "arguments": "{\"name\": \"Sam Taylor\", \"phone\": \"+447700900123\", \"reason\": \"New patient check-up\", \"date\": \"2026-11-06\", \"time\": \"10:30\"}",
+                "result": "Booked. Sam Taylor, New patient check-up, Friday 6 November at 10:30am. Reference 5A7BBF. Confirm this back to the caller.",
+                "at_utc": "2026-11-05T10:19:04.253857+00:00"
+            },
+            {
+                "tool": "book_appointment",
+                "arguments": "{\"name\": \"Alex Moore\", \"phone\": \"+447700900456\", \"reason\": \"Hygienist clean\", \"date\": \"2026-11-06\", \"time\": \"10:30\"}",
+                "result": "Friday 6 November at 10:30am is not available. Check availability again and offer another time.",
+                "at_utc": "2026-11-05T10:19:04.255134+00:00"
+            },
+            {
+                "tool": "handover",
+                "arguments": "{\"caller_name\": \"Sam Taylor\", \"callback_number\": \"+447700900123\", \"reason\": \"Asked about payment plans\", \"urgent\": false}",
+                "result": "The team has been alerted and will call Sam Taylor back on +447700900123 within the hour, during opening hours. Tell the caller exactly that.",
+                "at_utc": "2026-11-05T10:19:04.256441+00:00"
+            },
+            {
+                "tool": "send_summary",
+                "arguments": "{\"caller_name\": \"Sam Taylor\", \"phone\": \"+447700900123\", \"summary\": \"New patient booked a check-up. Asked about payment plans.\", \"follow_up\": \"Call back about payment plans\"}",
+                "result": "Summary sent to the team.",
+                "at_utc": "2026-11-05T10:19:04.257850+00:00"
+            }
+        ]
+    }
+]

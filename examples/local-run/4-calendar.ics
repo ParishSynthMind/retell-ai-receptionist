@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//retell-ai-receptionist//EN
+X-WR-CALNAME:Harbour Dental Clinic
+BEGIN:VEVENT
+UID:5a7bbfc35c49@retell-ai-receptionist
+DTSTAMP:20261105T101904Z
+DTSTART:20261106T103000Z
+DTEND:20261106T110000Z
+SUMMARY:Sam Taylor: New patient check-up
+DESCRIPTION:Phone: +447700900123\nBooked by the voice receptionist
+END:VEVENT
+END:VCALENDAR
