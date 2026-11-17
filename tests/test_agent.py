@@ -25,7 +25,7 @@ def test_llm_uses_model_config_not_the_deprecated_model_field(llm):
     assert "model" not in llm
     assert llm["model_config"] == {"type": "cascading", "primary": {"model": RETELL_MODEL}, "temperature": 0.2}
     assert RETELL_MODEL in RETELL_CLAUDE_MODELS
-    assert llm["start_speaker"] in ("user", "agent") and llm["begin_message"].startswith("Hello")
+    assert llm["start_speaker"] in ("user", "agent") and llm["begin_message"].startswith("Hi, this is Cimo, an AI assistant for Harbour Dental Clinic.")
 
 
 def test_prompt_has_the_knowledge_base_and_the_safety_rules(llm):

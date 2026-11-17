@@ -62,7 +62,7 @@ def main(argv=None, api=None) -> int:
 
     if not a.server_url:
         p.error("--server-url is needed")
-    llm_body = build_llm(s.business_name, s.timezone, s.knowledge_base, a.server_url)
+    llm_body = build_llm(s.business_name, s.timezone, s.knowledge_base, a.server_url, disclosure=s.disclosure)
     if a.dry_run:
         print("POST /create-retell-llm\n" + json.dumps(llm_body, indent=2))
         print("\nPOST /create-agent\n" + json.dumps(build_agent("<llm_id from the first call>", a.server_url,

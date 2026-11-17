@@ -53,7 +53,7 @@ def build_receptionist(settings: Settings, calendar=None, notifier: Optional[Not
     scheduler = Scheduler(calendar, settings.timezone, settings.hours, settings.slot_minutes,
                           settings.min_notice_minutes)
     return Receptionist(scheduler, calendar, notifier, CallLog(settings.data_dir / "calls.sqlite3"),
-                        settings.business_name)
+                        settings.business_name, settings.handover_notice)
 
 
 def call_context(call: Dict[str, Any]) -> Dict[str, Any]:

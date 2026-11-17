@@ -81,10 +81,14 @@ RETELL_API_KEY=local-test-key python scripts/simulate_call.py
 
 `CALENDAR_BACKEND=google` with a service account that the calendar is shared with ("Make changes to events"). The Google backend is the one from the Vapi build, where it was tested live against a real Google Calendar.
 
+## AI disclosure (EU AI Act Article 50)
+
+Every call opens with the receptionist saying it is an AI: "Hi, this is Cimo, an AI assistant for Harbour Dental Clinic. How can I help today?" (Retell's `begin_message`, set by `create_agent.py`, so web test calls get it too). On a handover the caller hears "I'm an AI assistant, so I'm handing you over to a person on the team." The text is set with `AI_DISCLOSURE` (and `AGENT_NAME`); blanking it falls back to the default. It can only be removed when `AI_DISCLOSURE_REMOVED_BY_WRITTEN_REQUEST` holds a reference to the client's recorded written request. This is covered by offline tests only; the live calls and `examples/` below were recorded before it was added, so they still show the old greeting.
+
 ## Tests
 
 ```bash
-pytest          # 68 tests, Retell, Google Calendar and email mocked, no keys needed
+pytest          # 77 tests, Retell, Google Calendar and email mocked, no keys needed
 ruff check .
 ```
 
@@ -92,6 +96,7 @@ ruff check .
 - **The server as Retell sees it**: signed function calls in Retell's request shape (and the "args only" shape), every function, double booking, a name that doesn't match the URL, bad JSON, the full webhook lifecycle, retries, the fallback summary email, admin access, and that the log holds no caller details.
 - **The LLM and agent bodies** checked against the rules in Retell's API reference (required fields, tool name pattern, timeout and retry ranges, `model_config` instead of the deprecated `model`, a model id from Retell's list).
 - **Retell's REST API** mocked at the HTTP layer with its documented paths, status codes (201 create, 204 delete, 422) and `{"status": "error", "message": ...}` bodies, including 429 "Account rate limited" retried then reported; and the create, update and delete script end to end.
+- **The AI disclosure**: in the begin message, not repeated in function results, on every handover, and not removable by blanking it.
 - The scheduling, calendar and booking tests carried over from the Vapi build.
 
 GitHub Actions runs lint and tests on every push, with no secrets.
@@ -110,7 +115,7 @@ The server ran on this Mac behind a Cloudflare quick tunnel, `create_agent.py` c
 - **Median reply time 1.2 to 1.7 seconds** end to end (Claude 0.5 to 1.4 s), from Retell's latency figures.
 - **Webhooks arrive out of order** (on call 3, `call_analyzed` came before `call_ended` and `call_started`). The call log merged them correctly.
 - **The live run found one thing, fixed with tests and re-checked live**: Retell sends `call_ended` and `call_analyzed` even for a web call whose caller never joined (`error_user_not_joined`), and the fallback emailed an empty "summary" for each. Those calls are now logged as "Never connected" with no email, and a web call's fallback says "web call" instead of "unknown number" (call 3's email above predates that change).
-- **68 tests pass** and lint is clean; the earlier signed local run is still in [`examples/local-run/`](examples/local-run/).
+- **68 tests passed** at the time and lint was clean; the earlier signed local run is still in [`examples/local-run/`](examples/local-run/).
 
 ![Calls 2 and 3](media/live-calls-handover-hangup.png)
 

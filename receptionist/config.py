@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+from .disclosure import handover_notice, resolve_disclosure
+
 # Weekday (0 = Monday) -> list of (open, close) in "HH:MM", business local time.
 DEFAULT_HOURS: Dict[int, List[Tuple[str, str]]] = {
     0: [("09:00", "17:00")],
@@ -39,6 +41,19 @@ class Settings:
     smtp_user: Optional[str] = None
     smtp_password: Optional[str] = None
     smtp_from: Optional[str] = None
+    agent_name: str = "Cimo"
+    # AI disclosure (EU AI Act Art. 50). See receptionist/disclosure.py.
+    ai_disclosure: str = ""
+    ai_disclosure_removed_by_written_request: str = ""
+
+    @property
+    def disclosure(self) -> str:
+        return resolve_disclosure(self.ai_disclosure, self.ai_disclosure_removed_by_written_request,
+                                  self.agent_name, self.business_name)
+
+    @property
+    def handover_notice(self) -> str:
+        return handover_notice(self.ai_disclosure_removed_by_written_request)
 
     def __post_init__(self) -> None:
         # The summary and handover emails go to ONE fixed address from the config. Nothing a caller
@@ -68,4 +83,7 @@ class Settings:
             smtp_user=env("SMTP_USER"),
             smtp_password=env("SMTP_PASSWORD"),
             smtp_from=env("SMTP_FROM") or env("SMTP_USER"),
+            agent_name=env("AGENT_NAME", cls.agent_name),
+            ai_disclosure=env("AI_DISCLOSURE", ""),
+            ai_disclosure_removed_by_written_request=env("AI_DISCLOSURE_REMOVED_BY_WRITTEN_REQUEST", ""),
         )
